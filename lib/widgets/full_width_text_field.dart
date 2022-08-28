@@ -1,3 +1,4 @@
+import 'package:authentication/constants.dart';
 import 'package:flutter/material.dart';
 
 class FullWidthTextField extends StatelessWidget {
@@ -10,6 +11,8 @@ class FullWidthTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     required this.validator,
     required this.onEditingComplete,
+    required this.icon,
+    this.isObscureText = false,
   }) : super(key: key);
   final String hintText;
   final FormFieldSetter<String> onSaved;
@@ -18,14 +21,27 @@ class FullWidthTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final FormFieldValidator<String> validator;
   final Function onEditingComplete;
+  final IconData icon;
+  final bool isObscureText;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width * 0.90,
+      padding: const EdgeInsets.symmetric(
+        vertical: 5.0,
+        horizontal: 15.0,
+      ),
       decoration: BoxDecoration(
-        color: Colors.yellow,
+        color: Colors.white,
+        boxShadow: const <BoxShadow>[
+          BoxShadow(
+            color: kShadowColor,
+            offset: Offset(0, 12),
+            blurRadius: 16.0,
+          ),
+        ],
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: TextFormField(
@@ -35,9 +51,17 @@ class FullWidthTextField extends StatelessWidget {
         validator: validator,
         controller: controller,
         keyboardType: keyboardType,
+        obscureText: isObscureText,
         decoration: InputDecoration(
-          hintText: "Provide",
-          disabledBorder: InputBorder.none,
+          icon: Icon(
+            icon,
+            color: Colors.black,
+          ),
+          hintText: hintText,
+          hintStyle: TextStyle(
+            color: Colors.grey,
+          ),
+          border: InputBorder.none,
         ),
       ),
     );

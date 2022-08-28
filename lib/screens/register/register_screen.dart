@@ -10,6 +10,21 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: MaterialButton(
+          color: Colors.indigo,
+          onPressed: (){
+            Navigator.pop(context);
+          },          
+          child: const Text(
+            "Pop",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
