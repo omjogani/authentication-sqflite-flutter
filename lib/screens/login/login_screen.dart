@@ -31,8 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
       );
   }
   void loginSubmitEvent() async {
-    final String emailToBeSent = _emailController.text;
-    final String passwordToBeSent = _passwordController.text;
+    final String emailToBeSent = _emailController.text.trim();
+    final String passwordToBeSent = _passwordController.text.trim();
     var response = await dbHelper!.isEmailExist(emailToBeSent,passwordToBeSent);
     if (response) {
       successNavigation();

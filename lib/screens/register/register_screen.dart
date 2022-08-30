@@ -23,9 +23,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   DBHelper? dbHelper = DBHelper();
 
   void singupSubmitEvent() {
+    String emailToBeSent = _emailController.text.trim();
+    String passwordToBeSent = _passwordController.text.trim();
     dbHelper!
         .insert(
-      User(email: _emailController.text, password: _passwordController.text),
+      User(email: emailToBeSent, password: passwordToBeSent),
     ).then((value) {
       const snackBar = SnackBar(
         backgroundColor: Colors.green,
@@ -43,22 +45,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
-    var response = dbHelper!.isEmailExist(_emailController.text, _passwordController.text);
-    if (response != true) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const WelcomeScreen(),
-        ),
-      );
-    }else {
-      const snackBar = SnackBar(
-        backgroundColor: Colors.red,
-        content: Text('User not Found!!'),
-        duration: Duration(seconds: 1),
-      );
-    }
-
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const WelcomeScreen(),
+      ),
+    );
   }
   
   @override
@@ -77,7 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Text(
-                  "Login",
+                  "Register",
                   maxLines: 1,
                   style: TextStyle(
                     fontSize: 40.0,
